@@ -1,0 +1,30 @@
+# Ignore all data files by default
+*
+
+# But keep directory structure
+!.gitkeep
+!.gitignore
+
+# Allow small metadata files
+!*.json
+!*.yaml
+!*.yml
+
+# Ignore large data files
+*.npz
+*.npy
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore raw instance files
+*.cnf
+*.dimacs
+
+# Ignore result archives
+*.tar.gz
+*.zip

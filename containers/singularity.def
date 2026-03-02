@@ -1,0 +1,58 @@
+Bootstrap: docker
+From: python:3.11-slim
+
+%help
+    Singularity container for Phase-Transition-Hardness
+    
+    Usage:
+        singularity build phase-transition.sif singularity.def
+        singularity run phase-transition.sif
+        singularity exec phase-transition.sif python experiments/alpha_sweep.py
+
+%labels
+    Maintainer Robin Bisht
+    Version 1.0.0
+    Description Phase-Transition Structure as Foundation for Cryptographic Hardness
+
+%post
+    apt-get update && apt-get install -y \
+        git \
+        build-essential \
+        && rm -rf /var/lib/apt/lists/*
+    
+    pip install --upgrade pip
+    
+    mkdir -p /app
+    cd /app
+    
+    if [ -f requirements.txt ]; then
+        pip install -r requirements.txt
+    fi
+    
+    pip install numpy scipy matplotlib networkx tqdm joblib pandas seaborn
+
+%files
+    ../src /app/src
+    ../experiments /app/experiments
+    ../requirements.txt /app/requirements.txt
+    ../pyproject.toml /app/pyproject.toml
+
+%post
+    cd /app
+    pip install -e .
+    
+    mkdir -p /app/results
+    mkdir -p /app/figures
+
+%environment
+    export PYTHONUNBUFFERED=1
+    export PYTHONDONTWRITEBYTECODE=1
+    export PYTHONPATH=/app:$PYTHONPATH
+
+%runscript
+    exec python /app/src/validation.py --results_dir /app/results
+
+%test
+    cd /app
+    python -c "from src.energy_model import ALPHA_S; print(f'α_s = {ALPHA_S}')"
+    python -m pytest tests/unit -v --tb=short -x

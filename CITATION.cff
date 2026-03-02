@@ -1,0 +1,71 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the manuscript and this repository."
+type: software
+title: "Phase-Transition-Hardness: Research Companion Repository"
+version: "1.0.0"
+date-released: "2024-01-01"
+license: MIT
+url: "https://github.com/robinbishtt/Phase-Transition-Hardness"
+
+authors:
+  - family-names: Bisht
+    given-names: Robin
+    email: bishtrobin75@gmail.com
+
+abstract: >
+  Reproducible computational artifact for the manuscript "Phase-Transition Structure as
+  Foundation for Cryptographic Hardness". Implements the theoretical framework linking
+  computational hardness in random 3-SAT to phase-transition phenomena in statistical
+  mechanics, including numerical experiments on barrier-hardness correspondence,
+  finite-size scaling analysis, and cryptographic hardness implications.
+
+keywords:
+  - computational complexity
+  - phase transitions
+  - cryptographic hardness
+  - constraint satisfaction
+  - statistical mechanics
+  - random 3-SAT
+  - finite-size scaling
+  - free-energy barriers
+
+references:
+  - type: article
+    title: "Phase-Transition Structure as Foundation for Cryptographic Hardness"
+    authors:
+      - family-names: Bisht
+        given-names: Robin
+    journal: "Manuscript"
+    year: 2024
+
+  - type: article
+    title: "Determining computational complexity from characteristic 'phase transitions'"
+    authors:
+      - family-names: Monasson
+        given-names: Rémi
+      - family-names: Zecchina
+        given-names: Riccardo
+      - family-names: Kirkpatrick
+        given-names: Scott
+      - family-names: Selman
+        given-names: Bart
+      - family-names: Troyansky
+        given-names: Lidror
+    journal: "Nature"
+    volume: 400
+    pages: "133-137"
+    year: 1999
+
+  - type: article
+    title: "Analytic and algorithmic solution of random satisfiability problems"
+    authors:
+      - family-names: "Mézard"
+        given-names: Marc
+      - family-names: Parisi
+        given-names: Giorgio
+      - family-names: Zecchina
+        given-names: Riccardo
+    journal: "Science"
+    volume: 297
+    pages: "812-815"
+    year: 2002
