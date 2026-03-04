@@ -208,19 +208,6 @@ Phase-Transition-Hardness/
 | FSS analysis | ~3 hours | ~300,000 | ~$1,600 |
 | Peak localization | ~2 hours | ~200,000 | ~$1,100 |
 
-## Citation
-
-If you use this code, please cite:
-
-```bibtex
-@software{phase_transition_hardness_2026,
-  author = {Bisht, Robin},
-  title = {Phase-Transition Structure as Foundation for Cryptographic Hardness},
-  year = {2026},
-  url = {https://github.com/robinbishtt/Phase-Transition-Hardness},
-  doi = {10.5281/zenodo.18764848}
-}
-```
 
 ## License
 
@@ -234,12 +221,6 @@ This research builds on decades of work in statistical mechanics of disordered s
 - Cavity method for random CSPs (Mézard-Mora-Zecchina)
 - Phase transitions in k-SAT (Monasson-Zecchina-Kirkpatrick-Troyansky)
 - Algorithmic barriers in random CSPs (Achlioptas-Coja-Oghlan)
-
-## Contact
-
-- **Author**: Robin Bisht
-- **Email**: bishtrobin75@gmail.com
-- **GitHub**: [@robinbishtt](https://github.com/robinbishtt)
 
 ## Support
 
