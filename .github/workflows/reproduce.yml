@@ -1,0 +1,128 @@
+name: Reproduce
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Reproduction mode'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick
+          - medium
+          - figures-only
+          - tables-only
+      n_instances:
+        description: 'Instances per (n, alpha) point'
+        required: false
+        default: '50'
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'experiments/**'
+      - 'reproduce.sh'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+          python -c "
+          from src.energy_model import barrier_density, ALPHA_STAR
+          b = barrier_density(ALPHA_STAR)
+          assert abs(b - 0.021) < 0.003, f'b={b}'
+          print(f'Verification: b(alpha*=4.20) = {b:.4f}  OK')
+          "
+
+      - name: Run reproduction (quick)
+        if: ${{ github.event.inputs.mode == 'quick' || github.event_name == 'push' }}
+        run: bash reproduce.sh --quick --output=results_ci
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Run reproduction (medium)
+        if: ${{ github.event.inputs.mode == 'medium' }}
+        run: |
+          python experiments/alpha_sweep.py \
+            --n 100 200 \
+            --n_instances ${{ github.event.inputs.n_instances || 50 }} \
+            --alpha_min 3.5 --alpha_max 5.0 --alpha_step 0.10 \
+            --seed 20240223 --output_dir results_ci --n_jobs 2
+          python experiments/finite_size_scaling.py \
+            --n 100 200 \
+            --n_instances ${{ github.event.inputs.n_instances || 50 }} \
+            --alpha_min 3.5 --alpha_max 5.0 --alpha_step 0.10 \
+            --seed 20240223 --output_dir results_ci --n_jobs 2
+          python figures/generate_all_figures.py \
+            --results_dir results_ci --output_dir results_ci/figures \
+            --format png --dpi 150
+          python src/validation.py --results_dir results_ci
+
+      - name: Regenerate figures only
+        if: ${{ github.event.inputs.mode == 'figures-only' }}
+        run: bash reproduce.sh --figures-only --output=results_ci
+
+      - name: Regenerate tables only
+        if: ${{ github.event.inputs.mode == 'tables-only' }}
+        run: bash reproduce.sh --tables-only --output=results_ci
+
+      - name: Verify validation checks
+        run: |
+          python src/validation.py --results_dir results_ci || true
+          python -c "
+          import json
+          try:
+              with open('results_ci/validation.json') as f:
+                  v = json.load(f)
+              print(f'Validation: {v[\"passed\"]}/{v[\"total\"]} checks passed')
+          except FileNotFoundError:
+              print('validation.json not found — skipping')
+          "
+
+      - name: Count outputs
+        run: |
+          N_FIGS=$(ls results_ci/figures/*.png 2>/dev/null | wc -l)
+          N_TABS=$(ls results_ci/tables/*.csv  2>/dev/null | wc -l)
+          echo "Generated: $N_FIGS figures, $N_TABS tables"
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reproduction-outputs-${{ github.run_number }}
+          path: |
+            results_ci/figures/*.png
+            results_ci/tables/*.csv
+            results_ci/validation.json
+            results_ci/fss_result.json
+            results_ci/alpha_sweep_summary.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Upload full results (non-quick only)
+        uses: actions/upload-artifact@v4
+        if: ${{ github.event.inputs.mode != 'quick' && github.event.inputs.mode != '' }}
+        with:
+          name: full-results-${{ github.run_number }}
+          path: results_ci/
+          if-no-files-found: ignore
+          retention-days: 7

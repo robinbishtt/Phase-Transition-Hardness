@@ -1,0 +1,58 @@
+name: Figures
+
+on:
+  push:
+    paths:
+      - 'figures/**'
+      - 'src/**'
+  pull_request:
+    branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  figures:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Syntax-check figure modules
+        run: |
+          for f in figures/hardness_plots.py \
+                   figures/phase_transition_plots.py \
+                   figures/scaling_collapse.py \
+                   figures/landscape_visuals.py \
+                   figures/extended_data_figures.py \
+                   figures/generate_all_figures.py; do
+            python -m py_compile "$f"
+            echo "  syntax OK: $f"
+          done
+
+      - name: Generate figures (synthetic data)
+        run: |
+          mkdir -p results/figures
+          python figures/generate_all_figures.py \
+            --results_dir results \
+            --output_dir  results/figures \
+            --format png \
+            --dpi 72
+          ls -la results/figures/
+
+      - name: Verify figure count
+        run: |
+          N=$(ls results/figures/*.png 2>/dev/null | wc -l)
+          echo "Generated $N PNG figures"
+          [ "$N" -ge 5 ] || { echo "ERROR: expected at least 5 figures"; exit 1; }

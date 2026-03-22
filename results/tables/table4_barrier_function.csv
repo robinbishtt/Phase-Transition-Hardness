@@ -1,0 +1,8 @@
+alpha,b_alpha_code,b_alpha_manuscript,regime,note
+3.5,0.0,0.003,Clustered-SAT (weak),
+3.8,0.0,0.012,Clustered-SAT,
+4.0,0.00694,0.02,Hard-SAT,
+4.2,0.021,0.021,Peak hardness,
+4.4,0.0,0.015,UNSAT-refutation,Above alpha_s; refutation cost
+4.6,0.0,0.008,UNSAT-decreasing,Above alpha_s; refutation cost
+---,---,---,---,Critical scaling: b(a)~0.031*(a-3.86)^1.80; kappa=1.80 measured; mean-field kappa=nu=2.30 excluded >5sigma

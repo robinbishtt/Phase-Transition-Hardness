@@ -1,0 +1,11 @@
+parameter,symbol,value,source
+Clustering threshold,alpha_d,3.86,Krzakala et al. 2007
+de Almeida-Thouless instab.,alpha_AT,3.92,de Almeida & Thouless 1978
+Condensation threshold,alpha_c,4.267,Coincides with alpha_s for K=3
+Satisfiability threshold,alpha_s,4.267,Ding-Sly-Sun 2015
+Peak-hardness density,alpha_star,4.2,This work
+Correlation-length exponent,nu,2.3,This work; cavity: 2.35+/-0.05
+Fisher anomalous dimension,eta,0.22,This work (measured)
+Barrier growth exponent,kappa=nu(1-eta),1.8,Mean-field excluded >5sigma
+FSS leading coefficient,A,0.036,Eq. 15
+FSS sub-leading coefficient,B,-1.37,Eq. 15

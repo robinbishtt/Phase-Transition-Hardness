@@ -1,0 +1,40 @@
+{
+  "description": "Hardness at peak density \u03b1=4.20 (manuscript Table 2)",
+  "alpha": 4.2,
+  "master_seed": 20240223,
+  "n_instances_per_point": 1000,
+  "timeout_seconds": 3600,
+  "data": {
+    "100": {
+      "T_geom": 2670.0,
+      "log_T": 7.89,
+      "H": 0.0789,
+      "timeout_pct": 1.2
+    },
+    "200": {
+      "T_geom": 28500.0,
+      "log_T": 10.26,
+      "H": 0.0513,
+      "timeout_pct": 6.7
+    },
+    "400": {
+      "T_geom": 679000.0,
+      "log_T": 13.43,
+      "H": 0.0336,
+      "timeout_pct": 13.4
+    },
+    "800": {
+      "T_geom": 18900000.0,
+      "log_T": 16.76,
+      "H": 0.021,
+      "timeout_pct": 15.6
+    }
+  },
+  "regression": {
+    "slope": 0.0122,
+    "slope_se": 0.0004,
+    "intercept": 7.53,
+    "r2": 0.9876,
+    "note": "Finite-n slope; H_inf=0.021 from FSS extrapolation"
+  }
+}

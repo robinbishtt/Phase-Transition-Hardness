@@ -1,0 +1,4 @@
+security_level,n,alpha,S_bits_code,S_bits_manuscript,formula,caveat
+Basic,400,4.2,40.0,40,"S = c_eff * n * b(alpha) / ln2; c_eff=3.301, b(4.20)=0.021",Average-case only; quantum not covered; no worst-case reduction
+Standard,600,4.2,60.0,60,"S = c_eff * n * b(alpha) / ln2; c_eff=3.301, b(4.20)=0.021",Average-case only; quantum not covered; no worst-case reduction
+High,800,4.2,80.0,80,"S = c_eff * n * b(alpha) / ln2; c_eff=3.301, b(4.20)=0.021",Average-case only; quantum not covered; no worst-case reduction

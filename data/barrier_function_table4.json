@@ -1,0 +1,50 @@
+{
+  "description": "Intensive barrier function b(\u03b1) (manuscript Table 4)",
+  "data": [
+    {
+      "alpha": 3.5,
+      "b_alpha": 0.003,
+      "regime": "Clustered-SAT",
+      "b_alpha_code": 0.0
+    },
+    {
+      "alpha": 3.8,
+      "b_alpha": 0.012,
+      "regime": "Clustered-SAT",
+      "b_alpha_code": 0.0
+    },
+    {
+      "alpha": 4.0,
+      "b_alpha": 0.02,
+      "regime": "Hard-SAT",
+      "b_alpha_code": 0.00694
+    },
+    {
+      "alpha": 4.2,
+      "b_alpha": 0.021,
+      "regime": "Peak hardness",
+      "b_alpha_code": 0.021
+    },
+    {
+      "alpha": 4.4,
+      "b_alpha": 0.015,
+      "regime": "UNSAT (refutation)",
+      "b_alpha_code": 0.0
+    },
+    {
+      "alpha": 4.6,
+      "b_alpha": 0.008,
+      "regime": "UNSAT (decreasing)",
+      "b_alpha_code": 0.0
+    }
+  ],
+  "critical_scaling": {
+    "formula": "b(\u03b1) \u2248 0.031 \u00b7 (\u03b1 - 3.86)^1.80",
+    "kappa": 1.8,
+    "kappa_ci": [
+      1.68,
+      1.92
+    ],
+    "note": "Empirical critical scaling exponent kappa=1.80 measured from finite-size barrier data; mean-field kappa=nu=2.30 excluded at >5sigma"
+  }
+}

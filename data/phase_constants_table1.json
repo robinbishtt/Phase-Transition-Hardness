@@ -1,0 +1,25 @@
+{
+  "description": "Phase transition parameters (manuscript Table 1)",
+  "K": 3,
+  "alpha_d": 3.86,
+  "alpha_AT": 3.92,
+  "alpha_c": 4.267,
+  "alpha_s": 4.267,
+  "alpha_star": 4.2,
+  "nu": 2.3,
+  "nu_ci_95": [
+    2.2,
+    2.4
+  ],
+  "eta": 0.22,
+  "kappa": 1.8,
+  "FSS_A": 0.036,
+  "FSS_B": -1.37,
+  "Sigma_4_20": 0.027,
+  "sources": {
+    "alpha_s": "Ding-Sly-Sun (2015)",
+    "alpha_d": "Krzakala et al. (2007)",
+    "nu": "This work (Table 3); cavity: 2.35\u00b10.05",
+    "eta": "This work (Section 4.5, measured)"
+  }
+}

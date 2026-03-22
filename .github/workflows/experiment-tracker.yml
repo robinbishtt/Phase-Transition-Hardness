@@ -1,0 +1,76 @@
+name: Experiments
+
+on:
+  push:
+    branches: [main]
+    paths: ['experiments/**', 'src/**', 'config/**']
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  validate-experiments:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: List experiment scripts
+        run: |
+          echo "Available experiment scripts:"
+          ls -la experiments/*.py | grep -v __init__
+
+      - name: Smoke test — imports and constants
+        run: |
+          python -c "
+          import os
+          import experiments
+          print('experiments package: OK')
+
+          from src.energy_model import barrier_density, ALPHA_STAR
+          b = barrier_density(ALPHA_STAR)
+          assert abs(b - 0.021) < 0.003, f'barrier_density(4.20) = {b}'
+          print(f'barrier_density(alpha*=4.20) = {b:.4f}  OK')
+
+          exp_files = sorted(f for f in os.listdir('experiments')
+                             if f.endswith('.py') and not f.startswith('__'))
+          print(f'Experiment scripts found: {len(exp_files)}')
+          for f in exp_files:
+              print(f'  {f}')
+          "
+
+      - name: Validate YAML configs
+        run: |
+          python -c "
+          import os, yaml
+
+          configs = sorted(f for f in os.listdir('config') if f.endswith('.yaml'))
+          print(f'Config files: {len(configs)}')
+          for cfg in configs:
+              with open(os.path.join('config', cfg)) as f:
+                  yaml.safe_load(f)
+              print(f'  OK: {cfg}')
+          "
+
+      - name: Syntax-check experiment scripts
+        run: |
+          for f in experiments/alpha_sweep.py \
+                   experiments/finite_size_scaling.py \
+                   experiments/hardness_peak.py \
+                   experiments/scaling_law_verification.py; do
+            python -m py_compile "$f"
+            echo "  syntax OK: $f"
+          done

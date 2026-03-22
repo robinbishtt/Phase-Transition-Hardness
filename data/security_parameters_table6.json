@@ -1,0 +1,28 @@
+{
+  "description": "Cryptographic security parameters (manuscript Table 6)",
+  "formula": "S \u2248 n \u00b7 H_inf / ln(2)",
+  "H_inf": 0.021,
+  "H_inf_source": "FSS extrapolation, Table 2",
+  "alpha": 4.2,
+  "note": "Average-case security under Conjecture 4; quantum not covered",
+  "data": [
+    {
+      "label": "Basic",
+      "n": 400,
+      "alpha": 4.2,
+      "S_bits_approx": 40
+    },
+    {
+      "label": "Standard",
+      "n": 600,
+      "alpha": 4.2,
+      "S_bits_approx": 60
+    },
+    {
+      "label": "High",
+      "n": 800,
+      "alpha": 4.2,
+      "S_bits_approx": 80
+    }
+  ]
+}

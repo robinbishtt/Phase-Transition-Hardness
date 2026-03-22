@@ -1,0 +1,25 @@
+# Phase-Transition-Hardness — pinned runtime dependencies
+# Tested on Python 3.10 / 3.11 / 3.12 (Linux, macOS)
+# Generated from the environment used to produce manuscript results.
+#
+# Install:  pip install -r requirements.txt
+#
+# Core scientific stack
+numpy==2.4.2
+scipy==1.17.0
+matplotlib==3.10.8
+networkx==3.6.1
+joblib==1.5.3
+pandas==3.0.1
+seaborn==0.13.2
+#
+# Flexible lower bounds (for CI environments without exact version pinning)
+# Uncomment below and comment above lines if exact pinning causes conflicts:
+# numpy>=1.24.0
+# scipy>=1.11.0
+# matplotlib>=3.7.0
+# networkx>=3.1.0
+# joblib>=1.3.0
+# pandas>=2.0.0
+# seaborn>=0.12.0
+pyyaml>=6.0

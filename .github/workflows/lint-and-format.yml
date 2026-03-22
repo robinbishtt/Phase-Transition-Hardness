@@ -1,0 +1,42 @@
+name: Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install linting tools
+        run: pip install ruff black isort mypy
+
+      - name: Run ruff
+        run: ruff check src/ tests/ experiments/ ablation/ --select E,F,W --target-version py311
+        continue-on-error: true
+
+      - name: Run black (check mode)
+        run: black --check --line-length 100 --target-version py311 src/ tests/ experiments/ ablation/
+        continue-on-error: true
+
+      - name: Run isort (check mode)
+        run: isort --check-only --profile black --line-length 100 src/ tests/
+        continue-on-error: true
+
+      - name: Check type annotations
+        run: mypy src/ --ignore-missing-imports --no-strict-optional
+        continue-on-error: true

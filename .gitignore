@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+*.whl
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Test output and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+nosetests.xml
+pytest-coverage.txt
+
+# Results directories (large computed outputs — not version controlled)
+results/
+results_*/
+results_ci/
+results_quick/
+results_final_test/
+results_repro_test*/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary and system files
+*.log
+*.tmp
+*.bak
+temp_extract_outside/
+
+# Build artifacts
+*.c
+*.cpp
+MANIFEST
+
+# Compiled SAT solver binaries (install separately per docs/INSTALLATION.md)
+kissat
+cadical
+*.cnf
+
+# Large data files (provided via reproduce.sh or generate_figures.sh)
+data/*.db

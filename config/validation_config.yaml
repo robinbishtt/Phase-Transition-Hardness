@@ -1,0 +1,114 @@
+# Validation Configuration
+# Defines criteria for automated validation checks
+
+validation_checks:
+  check_1_satisfiability_threshold:
+    name: "Satisfiability threshold"
+    description: "α_s should be in literature range"
+    expected_value: "~4.267"
+    criteria:
+      min: 4.20
+      max: 4.35
+    source_file: "phase_transition_summary.json"
+    field: "thresholds"
+    severity: "critical"
+
+  check_2_hardness_peak_location:
+    name: "Hardness peak location"
+    description: "α* should be near 4.20"
+    expected_value: "~4.20"
+    criteria:
+      min: 4.10  # permissive lower bound for α* sweep
+      max: 4.40
+    source_file: "alpha_sweep_summary.json"
+    field: "alpha_star_inf"
+    severity: "critical"
+
+  check_3_peak_hardness_density:
+    name: "Peak hardness density"
+    description: "γ_max should be in expected range"
+    expected_value: "~0.021"  # H_inf from Table 2
+    criteria:
+      min: 0.005
+      max: 0.05
+    source_file: "alpha_sweep_summary.json"
+    field: "gamma_maxima"
+    severity: "critical"
+
+  check_4_exponential_scaling:
+    name: "Exponential scaling fit"
+    description: "Conjecture 1: log T = Θ(n·b(α))"
+    expected_value: "R² ≥ 0.85"
+    criteria:
+      min_r2: 0.85
+      require_positive_gamma: true
+    source_file: "exponential_scaling_summary.json"
+    field: "mean_r2"
+    severity: "high"
+
+  check_5_fss_collapse_quality:
+    name: "FSS collapse quality"
+    description: "Data collapse residual should be small"
+    expected_value: "Residual < 0.10"
+    criteria:
+      max_residual: 0.10
+    source_file: "fss_result.json"
+    field: "residual"
+    severity: "high"
+
+  check_6_fss_critical_exponent:
+    name: "FSS critical exponent"
+    description: "ν should be in expected range"
+    expected_value: "~2.30"
+    criteria:
+      min: 1.5
+      max: 3.5
+    source_file: "fss_result.json"
+    field: "nu"
+    severity: "high"
+
+  check_7_barrier_positivity:
+    name: "Barrier density positivity"
+    description: "b(α) > 0 in hard phase"
+    expected_value: "Conjecture 1"
+    criteria:
+      test_points: 20
+      alpha_range:
+        min_offset: 0.05
+        max_offset: -0.05
+    source_file: "analytical"
+    severity: "medium"
+
+  check_8_psat_monotonicity:
+    name: "P_sat monotonicity"
+    description: "P_sat should be non-increasing in α"
+    expected_value: "Threshold structure"
+    criteria:
+      max_violations: 0
+      violation_threshold: 0.05
+    source_file: "phase_transition.npz"
+    field: "psat_matrix"
+    severity: "medium"
+
+# Severity levels define action on failure
+severity_levels:
+  critical:
+    action: "fail"
+    description: "Results do not match manuscript claims"
+  
+  high:
+    action: "warn"
+    description: "Results deviate from expected values"
+  
+  medium:
+    action: "info"
+    description: "Minor deviation, may be due to sample size"
+  
+  low:
+    action: "ignore"
+    description: "Informational check only"
+
+# Tolerance settings for floating point comparisons
+tolerance:
+  absolute: 1.0e-10
+  relative: 1.0e-5

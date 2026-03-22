@@ -1,0 +1,5 @@
+n,T_geom_seconds,log_T_mean,H_log_T_over_n,timeout_fraction_pct,note
+100,2670.0,7.89,0.0789,1.2,
+200,28500.0,10.26,0.0513,6.7,
+400,679000.0,13.43,0.0336,13.4,
+800,18900000.0,16.76,0.021,15.6,H_inf=0.0210 is FSS extrapolation; regression slope=0.0122

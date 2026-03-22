@@ -1,0 +1,32 @@
+# Include essential files
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include CITATION.cff
+include CHANGELOG.md
+
+# Include configuration files
+include pyproject.toml
+include requirements.txt
+include requirements-dev.txt
+
+# Exclude unnecessary files
+global-exclude *.py[cod]
+global-exclude __pycache__
+global-exclude *.so
+global-exclude .DS_Store
+
+# Exclude test files from distribution
+recursive-exclude tests *
+recursive-exclude docs *
+recursive-exclude notebooks *
+recursive-exclude scripts *
+recursive-exclude .github *
+
+# Exclude build artifacts
+recursive-exclude build *
+recursive-exclude dist *
+recursive-exclude *.egg-info *
+recursive-exclude .pytest_cache *
+recursive-exclude .mypy_cache *
+recursive-exclude htmlcov *

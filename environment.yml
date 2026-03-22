@@ -1,0 +1,57 @@
+# Conda environment specification for Phase-Transition-Hardness
+# Reproduces the exact software environment used in the manuscript.
+#
+# Create environment:
+#   conda env create -f environment.yml
+#   conda activate phase-hardness
+#
+# Update existing environment:
+#   conda env update -f environment.yml --prune
+
+name: phase-hardness
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python version
+  - python=3.11.9
+
+  # Core scientific stack (exact versions matching manuscript environment)
+  - numpy=2.4.2
+  - scipy=1.17.0
+  - matplotlib=3.10.8
+  - networkx=3.6.1
+  - joblib=1.5.3
+  - pandas=3.0.1
+  - seaborn=0.13.2
+
+  # Notebook support
+  - jupyter=1.0.0
+  - ipython>=8.14.0
+  - nbconvert>=7.7.0
+  - nbformat>=5.9.0
+  - ipykernel>=6.25.0
+
+  # Development tools
+  - pytest>=7.4.0
+  - pytest-cov>=4.1.0
+  - black>=23.7.0
+  - isort>=5.12.0
+  - pre-commit>=3.3.0
+
+  # pip-only packages
+  - pip:
+    - ruff>=0.0.280
+    - mypy>=1.5.0
+    - pytest-timeout>=2.1.0
+    - pytest-xdist>=3.3.0
+    - -e .  # install this package in editable mode
+
+# Hardware used for manuscript experiments:
+#   CPU: Intel Xeon Gold 6248R @ 3.0 GHz
+#   Cores: 24 physical per node
+#   RAM: 256 GB per node
+#   OS: Ubuntu 22.04 LTS
+#   Solvers: Kissat 3.1.0, CaDiCaL 1.9.4 (system binaries, not conda)

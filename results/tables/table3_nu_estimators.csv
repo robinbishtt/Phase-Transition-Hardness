@@ -1,0 +1,6 @@
+method,nu,ci_95_lo,ci_95_hi,chi2_per_dof
+Binder cumulant crossing,2.28,2.15,2.41,1.12
+Maximum-likelihood collapse,2.31,2.2,2.42,0.89
+Peak-location shift,2.25,2.05,2.45,1.45
+Combined (inv-var weighted),2.3,2.2,2.4,
+Cavity-method prediction,2.35,2.3,2.4,
